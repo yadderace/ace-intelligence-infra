@@ -1,0 +1,6 @@
+# Copy to terraform.tfvars (git-ignored) and fill in.
+ssh_key_name = "my-laptop"           # name shown in DO > Settings > Security
+admin_cidrs  = ["203.0.113.7/32"]    # your public IP: curl -s ifconfig.me
+# region       = "nyc3"
+# droplet_size = "s-1vcpu-2gb"
+# db_size      = "db-s-1vcpu-1gb"
