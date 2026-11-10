@@ -1,5 +1,0 @@
-do_token          = "set-via-TF_VAR_do_token-or-TFC-workspace-variable"
-region            = "nyc1"
-app_name          = "ace-intelligence"
-db_size           = "db-s-1vcpu-1gb"
-db_engine_version = "16"
