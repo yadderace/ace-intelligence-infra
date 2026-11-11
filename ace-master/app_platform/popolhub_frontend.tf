@@ -22,14 +22,42 @@ resource "digitalocean_app" "popolhub_frontend" {
       }
     }
 
-    # Omitted until frontend_domain is set; app uses the default
+    # Omitted until root_domain is set; app uses the default
     # *.ondigitalocean.app URL + HTTPS until then.
     dynamic "domain" {
-      for_each = var.frontend_domain != "" ? [var.frontend_domain] : []
+      for_each = var.root_domain != "" ? [1] : []
       content {
-        name = domain.value
+        name = "www.${var.root_domain}"
         type = "PRIMARY"
-        zone = domain.value
+        zone = var.root_domain
+      }
+    }
+
+    dynamic "domain" {
+      for_each = var.root_domain != "" ? [1] : []
+      content {
+        name = var.root_domain
+        type = "ALIAS"
+        zone = var.root_domain
+      }
+    }
+
+    dynamic "ingress" {
+      for_each = var.root_domain != "" ? [1] : []
+      content {
+        rule {
+          match {
+            authority {
+              exact = var.root_domain
+            }
+          }
+          redirect {
+            authority     = "www.${var.root_domain}"
+            scheme        = "https"
+            port          = 443
+            redirect_code = 301
+          }
+        }
       }
     }
   }
