@@ -4,3 +4,12 @@
 resource "digitalocean_domain" "popolhub" {
   name = "popolhub.com"
 }
+
+# digitalocean_domain has no project_id field, so it lands in the account's
+# default project unless explicitly assigned here.
+resource "digitalocean_project_resources" "popolhub_domain" {
+  project = digitalocean_project.this.id
+  resources = [
+    digitalocean_domain.popolhub.urn
+  ]
+}

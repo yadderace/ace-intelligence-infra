@@ -29,8 +29,6 @@ resource "digitalocean_app" "popolhub_frontend" {
       content {
         name = domain.value
         type = "PRIMARY"
-        # Zone must already exist as a DO-managed domain (see domain.tf in
-        # the root module) - lets App Platform create/manage its records.
         zone = domain.value
       }
     }
