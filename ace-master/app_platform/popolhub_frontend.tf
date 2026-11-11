@@ -7,11 +7,11 @@ resource "digitalocean_app" "popolhub_frontend" {
     region = "nyc"
 
     static_site {
-      name              = "frontend"
-      source_dir        = "frontend"
-      environment_slug  = "node-js"
-      build_command     = "npm run build"
-      output_dir        = "dist"
+      name             = "frontend"
+      source_dir       = "frontend"
+      environment_slug = "node-js"
+      build_command    = "npm run build"
+      output_dir       = "dist"
       # Needed for react-router-dom's client-side routes.
       catchall_document = "index.html"
 
@@ -29,6 +29,9 @@ resource "digitalocean_app" "popolhub_frontend" {
       content {
         name = domain.value
         type = "PRIMARY"
+        # Zone must already exist as a DO-managed domain (see domain.tf in
+        # the root module) - lets App Platform create/manage its records.
+        zone = domain.value
       }
     }
   }
