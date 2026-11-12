@@ -20,6 +20,12 @@ resource "digitalocean_app" "popolhub_frontend" {
         branch         = "main"
         deploy_on_push = true
       }
+
+      env {
+        key   = "VITE_API_URL"
+        value = "https://api.${var.root_domain}"
+        scope = "BUILD_TIME"
+      }
     }
 
     # Omitted until root_domain is set; app uses the default
