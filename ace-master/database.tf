@@ -12,3 +12,7 @@ resource "digitalocean_database_db" "app" {
   cluster_id = digitalocean_database_cluster.postgres.id
   name       = "popolhub"
 }
+
+data "digitalocean_database_ca" "popolhub_db_ca" {
+  cluster_id = digitalocean_database_cluster.postgres.id
+}
