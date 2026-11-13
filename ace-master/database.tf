@@ -13,6 +13,15 @@ resource "digitalocean_database_db" "app" {
   name       = "popolhub"
 }
 
+resource "digitalocean_database_firewall" "popolhub_db_firewall" {
+  cluster_id = digitalocean_database_cluster.postgres.id
+
+  rule {
+    type  = "app"
+    value = module.app_platform.backend_app_id
+  }
+}
+
 data "digitalocean_database_ca" "popolhub_db_ca" {
   cluster_id = digitalocean_database_cluster.postgres.id
 }

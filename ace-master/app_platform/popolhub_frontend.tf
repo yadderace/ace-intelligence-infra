@@ -64,6 +64,18 @@ resource "digitalocean_app" "popolhub_frontend" {
             redirect_code = 301
           }
         }
+
+        # Catchall routing requests to the static site itself.
+        rule {
+          match {
+            path {
+              prefix = "/"
+            }
+          }
+          component {
+            name = "frontend"
+          }
+        }
       }
     }
   }
